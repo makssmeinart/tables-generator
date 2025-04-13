@@ -10,7 +10,12 @@ export const TableDashboard = () => {
     <TableWrapperStyled>
       {tables.map((table) => {
         return (
-          <Table key={table.id} columns={table.columns} data={table.data} />
+          <Table
+            key={table.id}
+            tableId={table.id}
+            columns={table.columns}
+            data={table.data}
+          />
         )
       })}
     </TableWrapperStyled>

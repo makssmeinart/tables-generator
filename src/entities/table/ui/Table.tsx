@@ -1,32 +1,48 @@
 import styled from '@emotion/styled'
 import { Column } from '../../../features/createTable/ui/CreateTableForm'
+import { TableEditableCell } from './TableEditableCell'
+import { useDispatch } from 'react-redux'
+import { updateTable } from '../model/table.slice'
+import { useCallback } from 'react'
 
 interface Props {
+  tableId: number
   columns: Column[]
   data: any[]
 }
 
-export const Table = ({ columns, data }: Props) => {
+export const Table = ({ tableId, columns, data }: Props) => {
+  const dispatch = useDispatch()
+
+  const getHandleCellChange = useCallback(
+    (rowIndex: number, field: string) => (newValue: string) => {
+      dispatch(updateTable({ tableId, rowIndex, field, newValue }))
+    },
+    [dispatch, tableId]
+  )
+
   return (
     <TableStyled>
       <thead>
-        <TableRowStyled>
+        <tr>
           {columns.map((column) => (
             <TableHeaderCellStyled key={column.field}>
               {column.label}
             </TableHeaderCellStyled>
           ))}
-        </TableRowStyled>
+        </tr>
       </thead>
       <tbody>
         {data.map((data, indx) => (
-          <TableRowStyled key={indx}>
+          <tr key={indx}>
             {columns.map((column) => (
-              <TableCellStyled key={column.field}>
-                {data[column.field]}
-              </TableCellStyled>
+              <TableEditableCell
+                value={data[column.field]}
+                onChange={getHandleCellChange(indx, column.field)}
+                key={column.field}
+              />
             ))}
-          </TableRowStyled>
+          </tr>
         ))}
       </tbody>
     </TableStyled>
@@ -36,25 +52,15 @@ export const Table = ({ columns, data }: Props) => {
 const TableStyled = styled('table')`
   border-collapse: collapse;
   width: 100%;
+  table-layout: fixed;
+  font-size: 12px;
+  font-weight: 400;
 `
 
 const TableHeaderCellStyled = styled('th')`
   padding: 6px 4px;
   color: rgba(250, 250, 250, 0.5);
   background-color: #0a508b;
+  border: 1px solid #0a508b;
   text-align: left;
-  font-weight: 400;
-  font-size: 12px;
-`
-
-const TableRowStyled = styled('tr')``
-
-const TableCellStyled = styled('td')`
-  color: #000000;
-  background-color: #ffffff;
-  padding: 10px;
-  font-weight: 400;
-  font-size: 16px;
-  border: 1px solid #ebebeb;
-  cursor: pointer;
 `

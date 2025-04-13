@@ -16,16 +16,17 @@ export const useCreateTableForm = () => {
   const { close } = usePopoverContext()
 
   const [formValues, setFormValues] = useState<CreateTableFormState>({
-    firstCol: 'Name',
-    secondCol: 'Surname',
-    thirdCol: 'Age',
-    fourthCol: 'Country',
+    firstCol: '',
+    secondCol: '',
+    thirdCol: '',
+    fourthCol: '',
   })
 
   const handleChange = (
     e: ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
     const { name, value } = e.target
+
     setFormValues((prev) => ({ ...prev, [name]: value }))
   }
 

@@ -1,7 +1,8 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { Column } from '../../../features/createTable/ui/CreateTableForm'
+import { createEmptyTable } from '../lib/tableUtils'
 
-interface Table {
+export interface Table {
   id: number
   columns: Column[]
   data: any[]
@@ -19,21 +20,29 @@ const tableSlice = createSlice({
       state,
       action: PayloadAction<{ columns: Table['columns'] }>
     ) => {
-      const { columns } = action.payload
-
-      const newTable: Table = {
-        id: Date.now(),
-        columns,
-        data: [
-          { name: 'Makss', surname: 'Fillipinov', age: 12, location: 'Dpils' },
-          { name: 'Evgenii', surname: 'Brocalli', age: 412, location: 'Riga' },
-          { name: 'Arturs', surname: 'Cround', age: 31, city: 'Krizhi' },
-          { name: 'Ilja', surname: 'Red', age: 152, city: 'Livani' },
-          { name: 'Peteris', surname: 'Bomb', age: 17, city: 'Ekabpils' },
-        ],
-      }
+      const newTable = createEmptyTable(action.payload.columns)
 
       state.push(newTable)
+    },
+
+    updateTable: (
+      state,
+      action: PayloadAction<{
+        tableId: number
+        rowIndex: number
+        field: string
+        newValue: string
+      }>
+    ) => {
+      const { tableId, rowIndex, field, newValue } = action.payload
+
+      const table = state.find((t) => t.id === tableId)
+
+      if (!table || !table.data[rowIndex]) {
+        return
+      }
+
+      table.data[rowIndex][field] = newValue
     },
 
     copyTable: (state, action: PayloadAction<{ copiedTable: Table }>) => {
@@ -56,5 +65,5 @@ const tableSlice = createSlice({
   },
 })
 
-export const { createTable, copyTable } = tableSlice.actions
+export const { createTable, updateTable, copyTable } = tableSlice.actions
 export default tableSlice.reducer
