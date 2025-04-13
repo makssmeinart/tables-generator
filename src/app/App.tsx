@@ -1,19 +1,56 @@
-import styled from 'styled-components'
-import { MainProviders } from './provider'
+import styled from '@emotion/styled'
+import { StoreProvider } from './provider'
+import { Button, Popover, Portal } from '../shared/ui'
+import { CreateTableForm } from '../features'
+import { TableDashboard } from '../widgets'
 
+// We could add router. But in this case I think its unnecessary because we don't use routing in this project.
+// ps: unless we would want to include 404 page.
 export const App = () => {
   return (
-    <MainProviders>
-      <TablesWrapperStyled>Content</TablesWrapperStyled>
-    </MainProviders>
+    <StoreProvider>
+      <ContainerStyled>
+        <InnerStyled>
+          <ButtonWrapperStyled>
+            <Popover position="bottom-left">
+              <Popover.Trigger>
+                <ButtonWrapperStyled>
+                  <Button>Click me</Button>
+                </ButtonWrapperStyled>
+              </Popover.Trigger>
+              <Portal>
+                <Popover.Positioner>
+                  <Popover.Content>
+                    <CreateTableForm />
+                  </Popover.Content>
+                </Popover.Positioner>
+              </Portal>
+            </Popover>
+          </ButtonWrapperStyled>
+          <TableDashboard />
+        </InnerStyled>
+      </ContainerStyled>
+    </StoreProvider>
   )
 }
 
-const TablesWrapperStyled = styled('div')`
-  display: flex;
-  align-items: center;
+const ContainerStyled = styled('div')`
   margin: 0 auto;
+  padding: 20px 0;
   max-width: 1920px;
-  height: 100vh;
-  background-color: purple;
+  min-height: 100vh;
+`
+
+const InnerStyled = styled('div')`
+  display: flex;
+  flex-direction: column;
+  gap: 68px;
+  height: 100%;
+  padding: 0 8px;
+`
+
+const ButtonWrapperStyled = styled('div')`
+  width: fit-content;
+  flex-shrink: 0;
+  flex-grow: 0;
 `

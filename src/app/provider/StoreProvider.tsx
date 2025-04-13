@@ -7,6 +7,6 @@ interface Props {
   children: ReactNode
 }
 
-export const MainProvider = ({ children }: Props) => {
+export const StoreProvider = ({ children }: Props) => {
   return <Provider store={mainStore}>{children}</Provider>
 }
