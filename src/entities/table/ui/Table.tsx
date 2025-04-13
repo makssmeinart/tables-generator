@@ -2,8 +2,9 @@ import styled from '@emotion/styled'
 import { Column } from '../../../features/createTable/ui/CreateTableForm'
 import { TableEditableCell } from './TableEditableCell'
 import { useDispatch } from 'react-redux'
-import { updateTable } from '../model/table.slice'
+import { copyTable, updateTable } from '../model/table.slice'
 import { useCallback } from 'react'
+import { TableHeaderCell } from './TableHeaderCell'
 
 interface Props {
   tableId: number
@@ -21,14 +22,20 @@ export const Table = ({ tableId, columns, data }: Props) => {
     [dispatch, tableId]
   )
 
+  const handleIconClick = useCallback(() => {
+    dispatch(copyTable({ copiedTableId: tableId }))
+  }, [dispatch, tableId])
+
   return (
     <TableStyled>
       <thead>
         <tr>
           {columns.map((column) => (
-            <TableHeaderCellStyled key={column.field}>
-              {column.label}
-            </TableHeaderCellStyled>
+            <TableHeaderCell
+              key={column.field}
+              column={column}
+              onClick={handleIconClick}
+            />
           ))}
         </tr>
       </thead>
@@ -55,12 +62,4 @@ const TableStyled = styled('table')`
   table-layout: fixed;
   font-size: 12px;
   font-weight: 400;
-`
-
-const TableHeaderCellStyled = styled('th')`
-  padding: 6px 4px;
-  color: rgba(250, 250, 250, 0.5);
-  background-color: #0a508b;
-  border: 1px solid #0a508b;
-  text-align: left;
 `

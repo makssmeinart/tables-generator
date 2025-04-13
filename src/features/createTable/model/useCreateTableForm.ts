@@ -39,7 +39,13 @@ export const useCreateTableForm = () => {
       { field: firstCol.toLowerCase(), label: firstCol },
       { field: secondCol.toLowerCase(), label: secondCol },
       { field: thirdCol.toLowerCase(), label: thirdCol },
-      { field: fourthCol.toLowerCase(), label: fourthCol },
+      {
+        field: fourthCol.toLowerCase(),
+        label: fourthCol,
+        interactiveIcon: {
+          label: 'copy',
+        },
+      },
     ]
 
     dispatch(createTable({ columns }))

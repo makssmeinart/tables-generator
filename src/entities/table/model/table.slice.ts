@@ -36,28 +36,39 @@ const tableSlice = createSlice({
     ) => {
       const { tableId, rowIndex, field, newValue } = action.payload
 
-      const table = state.find((t) => t.id === tableId)
+      const tableIndex = state.findIndex((t) => t.id === tableId)
 
-      if (!table || !table.data[rowIndex]) {
+      if (tableIndex === -1) {
         return
       }
 
-      table.data[rowIndex][field] = newValue
+      const table = state[tableIndex]
+
+      if (!table.data[rowIndex]) {
+        return
+      }
+
+      table.data[rowIndex] = {
+        ...table.data[rowIndex],
+        [field]: newValue,
+      }
     },
 
-    copyTable: (state, action: PayloadAction<{ copiedTable: Table }>) => {
-      const { copiedTable } = action.payload
-
-      const index = state.findIndex((table) => table.id === copiedTable.id)
+    copyTable: (state, action: PayloadAction<{ copiedTableId: number }>) => {
+      const index = state.findIndex(
+        (table) => table.id === action.payload.copiedTableId
+      )
 
       if (index === -1) {
         return
       }
 
+      const copiedTable = state[index]
+
       const newTable: Table = {
         id: Date.now(),
-        columns: copiedTable.columns,
-        data: copiedTable.data,
+        columns: [...copiedTable.columns],
+        data: copiedTable.data.map((row) => ({ ...row })),
       }
 
       state.splice(index + 1, 0, newTable)

@@ -4,8 +4,19 @@ import { useCreateTableForm } from '../model/useCreateTableForm'
 
 export type Column = {
   field: string
-  label: React.ReactNode | string
+  label: string
+  interactiveIcon?: {
+    label: string
+  }
 }
+
+const LOCATION_OPTIONS = ['Country', 'City', 'Street', 'Home'] as const
+
+const inputFields = [
+  { name: 'firstCol', placeholder: 'First column' },
+  { name: 'secondCol', placeholder: 'Second column' },
+  { name: 'thirdCol', placeholder: 'Third column' },
+] as const
 
 export const CreateTableForm = () => {
   const { formValues, handleChange, handleSubmit } = useCreateTableForm()
@@ -13,35 +24,29 @@ export const CreateTableForm = () => {
   return (
     <FormWrapperStyled>
       <FormStyled onSubmit={handleSubmit}>
-        <Input
-          placeholder="First column"
-          name="firstCol"
-          value={formValues.firstCol}
-          onChange={handleChange}
-        />
-        <Input
-          placeholder="Second column"
-          name="secondCol"
-          value={formValues.secondCol}
-          onChange={handleChange}
-        />
-        <Input
-          placeholder="Third column"
-          name="thirdCol"
-          value={formValues.thirdCol}
-          onChange={handleChange}
-        />
+        {inputFields.map(({ name, placeholder }) => (
+          <Input
+            key={name}
+            name={name}
+            placeholder={placeholder}
+            value={formValues[name]}
+            onChange={handleChange}
+          />
+        ))}
+
         <select
           name="fourthCol"
           id="fourthCol"
           value={formValues.fourthCol}
           onChange={handleChange}
         >
-          <option value="Country">Country</option>
-          <option value="City">City</option>
-          <option value="Street">Street</option>
-          <option value="Home">Home</option>
+          {LOCATION_OPTIONS.map((value) => (
+            <option key={value} value={value}>
+              {value}
+            </option>
+          ))}
         </select>
+
         <Button type="submit" color="secondary" size="sm" weight="bold">
           ADD
         </Button>
