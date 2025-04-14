@@ -1,8 +1,7 @@
 import styled from '@emotion/styled'
 import { StoreProvider } from './provider'
-import { Button, Popover, Portal } from '../shared/ui'
-import { CreateTableForm } from '../features'
 import { TableDashboard } from '../widgets'
+import { CreateTableFormPopup } from '../features/createTable'
 
 // We could add router. But in this case I think its unnecessary because we don't use routing in this project.
 // ps: unless we would want to include 404 page.
@@ -12,20 +11,7 @@ export const App = () => {
       <ContainerStyled>
         <InnerStyled>
           <ButtonWrapperStyled>
-            <Popover position="bottom-left">
-              <Popover.Trigger>
-                <ButtonWrapperStyled>
-                  <Button>Click me</Button>
-                </ButtonWrapperStyled>
-              </Popover.Trigger>
-              <Portal>
-                <Popover.Positioner>
-                  <Popover.Content>
-                    <CreateTableForm />
-                  </Popover.Content>
-                </Popover.Positioner>
-              </Portal>
-            </Popover>
+            <CreateTableFormPopup />
           </ButtonWrapperStyled>
           <TableDashboard />
         </InnerStyled>

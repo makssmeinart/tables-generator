@@ -1,19 +1,18 @@
 import styled from '@emotion/styled'
-import { Column } from '../../../features/createTable/ui/CreateTableForm'
 import { TableEditableCell } from './TableEditableCell'
-import { useDispatch } from 'react-redux'
 import { copyTable, updateTable } from '../model/table.slice'
 import { useCallback } from 'react'
 import { TableHeaderCell } from './TableHeaderCell'
-
+import { useAppDispatch } from '../../../shared/lib/store/redux'
+import { type Table as ITable } from '../../../shared/types/tables'
 interface Props {
-  tableId: string
-  columns: Column[]
-  data: any[]
+  table: ITable
 }
 
-export const Table = ({ tableId, columns, data }: Props) => {
-  const dispatch = useDispatch()
+export const Table = ({ table }: Props) => {
+  const { id: tableId, columns, data } = table
+
+  const dispatch = useAppDispatch()
 
   const getHandleCellChange = useCallback(
     (rowIndex: number, field: string) => (newValue: string) => {

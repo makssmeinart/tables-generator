@@ -1,1 +1,1 @@
-export { CreateTableForm } from './ui/CreateTableForm'
+export { CreateTableFormPopup } from './ui/CreateTableFormPopup'

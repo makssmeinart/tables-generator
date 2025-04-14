@@ -1,22 +1,7 @@
 import styled from '@emotion/styled'
 import { Button, Input } from '../../../shared/ui'
 import { useCreateTableForm } from '../model/useCreateTableForm'
-
-export type Column = {
-  field: string
-  label: string
-  interactiveIcon?: {
-    label: string
-  }
-}
-
-const LOCATION_OPTIONS = ['Country', 'City', 'Street', 'Home'] as const
-
-const inputFields = [
-  { name: 'firstCol', placeholder: 'First column' },
-  { name: 'secondCol', placeholder: 'Second column' },
-  { name: 'thirdCol', placeholder: 'Third column' },
-] as const
+import { INPUT_FIELDS, LOCATION_OPTIONS } from '../lib/constants'
 
 export const CreateTableForm = () => {
   const { formValues, handleChange, handleSubmit } = useCreateTableForm()
@@ -24,7 +9,7 @@ export const CreateTableForm = () => {
   return (
     <FormWrapperStyled>
       <FormStyled onSubmit={handleSubmit}>
-        {inputFields.map(({ name, placeholder }) => (
+        {INPUT_FIELDS.map(({ name, placeholder }) => (
           <Input
             key={name}
             name={name}

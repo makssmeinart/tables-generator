@@ -1,8 +1,7 @@
 import { useState, ChangeEvent, FormEvent } from 'react'
-import { useDispatch } from 'react-redux'
-import { AppDispatch } from '../../../app/store/mainStore'
 import { createTable } from '../../../entities/table/model/table.slice'
 import { usePopoverContext } from '../../../shared/ui/Popover'
+import { useAppDispatch } from '../../../shared/lib/store/redux'
 
 export type CreateTableFormState = {
   firstCol: string
@@ -12,7 +11,7 @@ export type CreateTableFormState = {
 }
 
 export const useCreateTableForm = () => {
-  const dispatch = useDispatch<AppDispatch>()
+  const dispatch = useAppDispatch()
   const { close } = usePopoverContext()
 
   const [formValues, setFormValues] = useState<CreateTableFormState>({

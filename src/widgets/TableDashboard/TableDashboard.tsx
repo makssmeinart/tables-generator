@@ -1,15 +1,14 @@
-import { RootState } from '../../app/store/mainStore'
-import { useDispatch, useSelector } from 'react-redux'
 import styled from '@emotion/styled'
 import { Draggable } from '../../shared/ui'
 import { Table } from '../../entities'
 import { useState } from 'react'
 import { reorderTables } from '../../entities/table/model/table.slice'
+import { useAppDispatch, useAppSelector } from '../../shared/lib/store/redux'
 
 export const TableDashboard = () => {
-  const tables = useSelector((state: RootState) => state.tables)
+  const tables = useAppSelector((state: RootState) => state.tables)
 
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
   const [dragIndex, setDragIndex] = useState<number | null>(null)
 
   const handleDragStart = (index: number) => {
@@ -33,11 +32,7 @@ export const TableDashboard = () => {
             onDragStart={handleDragStart}
             onDrop={handleDrop}
           >
-            <Table
-              tableId={table.id}
-              columns={table.columns}
-              data={table.data}
-            />
+            <Table table={table} />
           </Draggable>
         </TableInnerStyled>
       ))}

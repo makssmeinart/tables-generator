@@ -1,17 +1,10 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { Column } from '../../../features/createTable/ui/CreateTableForm'
 import { createEmptyTable } from '../lib/tableUtils'
-import { generateUUIDv4 } from '../../../shared/lib/commonUtils'
+import { generateUUIDv4 } from '../../../shared/lib/utils/commonUtils'
+import { TableState } from './type'
+import { Table } from '../../../shared/types/tables'
 
-export interface Table {
-  id: string
-  columns: Column[]
-  data: any[]
-}
-
-type TablesState = Table[]
-
-const initialState: TablesState = []
+const initialState: TableState = []
 
 const tableSlice = createSlice({
   name: 'tablesSlice',

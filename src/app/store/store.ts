@@ -5,9 +5,6 @@ export const mainReducer = combineReducers({
   tables: tableReducer,
 })
 
-export const mainStore = configureStore({
+export const store = configureStore({
   reducer: mainReducer,
 })
-
-export type RootState = ReturnType<typeof mainStore.getState>
-export type AppDispatch = typeof mainStore.dispatch

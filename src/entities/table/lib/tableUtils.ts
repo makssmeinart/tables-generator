@@ -1,15 +1,12 @@
-import { Table } from '../model/table.slice'
-import { generateUUIDv4 } from '../../../shared/lib/commonUtils'
+import { generateUUIDv4 } from '../../../shared/lib/utils/commonUtils'
+import { Table, TableColumn, TableData } from '../../../shared/types/tables'
 
-export const createEmptyTable = (columns: Table['columns']): Table => {
-  const emptyData = columns.reduce(
-    (acc, item) => {
-      acc[item.field] = ''
+export const createEmptyTable = (columns: TableColumn[]): Table => {
+  const emptyData = columns.reduce((acc, item) => {
+    acc[item.field] = ''
 
-      return acc
-    },
-    {} as Record<string, string>
-  )
+    return acc
+  }, {} as TableData)
 
   const table: Table = {
     id: generateUUIDv4(),

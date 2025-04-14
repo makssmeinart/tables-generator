@@ -1,6 +1,6 @@
 import styled from '@emotion/styled'
-import { useEditableCell } from '../model/useEditableCell'
 import { Input } from '../../../shared/ui'
+import { useEditableCell } from '../lib/useEditableCell'
 
 interface Props {
   value: string

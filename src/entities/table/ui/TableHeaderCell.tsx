@@ -1,10 +1,10 @@
 import styled from '@emotion/styled'
-import { Column } from '../../../features/createTable/ui/CreateTableForm'
 
-import copyIcon from '../../../shared/assets/copyIcon.svg'
+import copyIcon from '../../../shared/assets/icons/copyIcon.svg'
+import { TableColumn } from '../../../shared/types/tables'
 
 interface Props {
-  column: Column
+  column: TableColumn
   onClick?: () => void
 }
 
