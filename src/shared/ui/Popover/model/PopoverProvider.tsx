@@ -1,5 +1,5 @@
 import React, { createContext, ReactNode } from 'react'
-import { usePopover } from './usePopover'
+import { usePopover } from '../lib/usePopover'
 
 interface PopoverContextType {
   position: 'bottom-left'

@@ -1,5 +1,5 @@
 import { useContext } from 'react'
-import { PopoverContext } from './PopoverProvider'
+import { PopoverContext } from '../model/PopoverProvider'
 
 export const usePopoverContext = () => {
   const context = useContext(PopoverContext)

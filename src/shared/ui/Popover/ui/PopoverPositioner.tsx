@@ -1,5 +1,5 @@
 import { ReactNode } from 'react'
-import { usePopoverContext } from '../model/usePopoverContext'
+import { usePopoverContext } from '../lib/usePopoverContext'
 import styled from '@emotion/styled'
 
 interface Props {
@@ -28,4 +28,5 @@ export const PopoverPositioner = ({ children }: Props) => {
 
 const PopoverWrapperStyled = styled('div')`
   position: absolute;
+  z-index: 999;
 `

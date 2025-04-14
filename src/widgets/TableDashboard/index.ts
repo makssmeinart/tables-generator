@@ -1,1 +1,1 @@
-export { TableDashboard } from './TableDashboard'
+export { TableDashboard } from './ui/TableDashboard'

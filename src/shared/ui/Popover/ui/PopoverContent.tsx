@@ -1,5 +1,5 @@
 import { ReactNode } from 'react'
-import { usePopoverContext } from '../model/usePopoverContext'
+import { usePopoverContext } from '../lib/usePopoverContext'
 
 interface Props {
   children: ReactNode

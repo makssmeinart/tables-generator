@@ -1,2 +1,2 @@
 export { Popover } from './ui/Popover'
-export { usePopoverContext } from './model/usePopoverContext'
+export { usePopoverContext } from './lib/usePopoverContext'

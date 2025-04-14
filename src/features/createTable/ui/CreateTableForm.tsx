@@ -1,7 +1,10 @@
 import styled from '@emotion/styled'
 import { Button, Input } from '../../../shared/ui'
 import { useCreateTableForm } from '../model/useCreateTableForm'
-import { INPUT_FIELDS, LOCATION_OPTIONS } from '../lib/constants'
+import { Select } from '../../../shared/ui/Select'
+
+import { INPUT_FIELDS } from '../lib/constants'
+import { LOCATION_SELECT_OPTIONS } from '../../../shared/constants/table'
 
 export const CreateTableForm = () => {
   const { formValues, handleChange, handleSubmit } = useCreateTableForm()
@@ -9,29 +12,19 @@ export const CreateTableForm = () => {
   return (
     <FormWrapperStyled>
       <FormStyled onSubmit={handleSubmit}>
-        {INPUT_FIELDS.map(({ name, placeholder }) => (
+        {INPUT_FIELDS.map(({ field, placeholder }) => (
           <Input
-            key={name}
-            name={name}
+            key={field}
             placeholder={placeholder}
-            value={formValues[name]}
-            onChange={handleChange}
+            value={formValues[field]}
+            onChange={(e) => handleChange(field, e.target.value)}
           />
         ))}
-
-        <select
-          name="fourthCol"
-          id="fourthCol"
+        <Select
+          options={LOCATION_SELECT_OPTIONS}
           value={formValues.fourthCol}
           onChange={handleChange}
-        >
-          {LOCATION_OPTIONS.map((value) => (
-            <option key={value} value={value}>
-              {value}
-            </option>
-          ))}
-        </select>
-
+        />
         <Button type="submit" color="secondary" size="sm" weight="bold">
           ADD
         </Button>
@@ -45,6 +38,7 @@ const FormWrapperStyled = styled('div')`
   background-color: white;
   padding: 20px 16px;
   border-radius: 4px;
+  box-shadow: 0px 4px 4px 0px #00000026;
 `
 
 const FormStyled = styled('form')`

@@ -1,7 +1,7 @@
 import styled from '@emotion/styled'
-
-import copyIcon from '../../../shared/assets/icons/copyIcon.svg'
 import { TableColumn } from '../../../shared/types/tables'
+
+import copyIcon from '../../../shared/assets/icons/copyIcon.png'
 
 interface Props {
   column: TableColumn

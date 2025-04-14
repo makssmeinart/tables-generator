@@ -1,27 +1,13 @@
 import styled from '@emotion/styled'
-import { Draggable } from '../../shared/ui'
-import { Table } from '../../entities'
-import { useState } from 'react'
-import { reorderTables } from '../../entities/table/model/table.slice'
-import { useAppDispatch, useAppSelector } from '../../shared/lib/store/redux'
+import { Draggable } from '../../../shared/ui'
+import { Table } from '../../../entities'
+import { useAppSelector } from '../../../shared/lib/store/redux'
+import { useTableDrag } from '../model/useTableDrag'
 
 export const TableDashboard = () => {
   const tables = useAppSelector((state: RootState) => state.tables)
 
-  const dispatch = useAppDispatch()
-  const [dragIndex, setDragIndex] = useState<number | null>(null)
-
-  const handleDragStart = (index: number) => {
-    setDragIndex(index)
-  }
-
-  const handleDrop = (dropIndex: number) => {
-    if (dragIndex !== null && dragIndex !== dropIndex) {
-      dispatch(reorderTables({ fromIndex: dragIndex, toIndex: dropIndex }))
-    }
-
-    setDragIndex(null)
-  }
+  const { handleDragStart, handleDrop } = useTableDrag()
 
   return (
     <TableWrapperStyled>
@@ -48,6 +34,6 @@ const TableWrapperStyled = styled('div')`
 
 const TableInnerStyled = styled('div')`
   flex: 1 1 calc((100% - 32px) / 3);
-  min-width: 350px;
+  min-width: 550px;
   max-width: 100%;
 `

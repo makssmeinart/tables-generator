@@ -1,13 +1,17 @@
-import { useState, ChangeEvent, FormEvent } from 'react'
+import { useState, FormEvent } from 'react'
 import { createTable } from '../../../entities/table/model/table.slice'
 import { usePopoverContext } from '../../../shared/ui/Popover'
 import { useAppDispatch } from '../../../shared/lib/store/redux'
+
+import { LOCATION_SELECT_OPTIONS } from '../../../shared/constants/table'
+
+type SelectOption = (typeof LOCATION_SELECT_OPTIONS)[number]
 
 export type CreateTableFormState = {
   firstCol: string
   secondCol: string
   thirdCol: string
-  fourthCol: string
+  fourthCol: SelectOption
 }
 
 export const useCreateTableForm = () => {
@@ -18,15 +22,11 @@ export const useCreateTableForm = () => {
     firstCol: '',
     secondCol: '',
     thirdCol: '',
-    fourthCol: '',
+    fourthCol: 'Country',
   })
 
-  const handleChange = (
-    e: ChangeEvent<HTMLInputElement | HTMLSelectElement>
-  ) => {
-    const { name, value } = e.target
-
-    setFormValues((prev) => ({ ...prev, [name]: value }))
+  const handleChange = (formField: string, value: string) => {
+    setFormValues((prev) => ({ ...prev, [formField]: value }))
   }
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {

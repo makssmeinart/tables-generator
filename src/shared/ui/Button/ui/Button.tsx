@@ -89,9 +89,21 @@ const ButtonStyled = styled('button')<AdditionButtonProps>`
   color: white;
   border: none;
   outline: none;
+  transition:
+    transform 0.1s ease,
+    background-color 0.2s ease,
+    filter 0.2s ease;
 
   ${({ color }) => buttonStyled.color[color]}
   ${({ size }) => buttonStyled.size[size]}
   ${({ round }) => buttonStyled.round[round]}
   ${({ weight }) => buttonStyled.weight[weight]}
+
+  &:active {
+    transform: scale(0.98);
+  }
+
+  &:hover {
+    filter: brightness(0.95);
+  }
 `
