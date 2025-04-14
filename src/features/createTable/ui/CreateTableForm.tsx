@@ -15,6 +15,7 @@ export const CreateTableForm = () => {
         {INPUT_FIELDS.map(({ field, placeholder }) => (
           <Input
             key={field}
+            required
             placeholder={placeholder}
             value={formValues[field]}
             onChange={(e) => handleChange(field, e.target.value)}
