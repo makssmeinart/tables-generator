@@ -7,7 +7,7 @@ import { useCallback } from 'react'
 import { TableHeaderCell } from './TableHeaderCell'
 
 interface Props {
-  tableId: number
+  tableId: string
   columns: Column[]
   data: any[]
 }
@@ -30,9 +30,9 @@ export const Table = ({ tableId, columns, data }: Props) => {
     <TableStyled>
       <thead>
         <tr>
-          {columns.map((column) => (
+          {columns.map((column, index) => (
             <TableHeaderCell
-              key={column.field}
+              key={`${column.field}-${index}`}
               column={column}
               onClick={handleIconClick}
             />
@@ -40,13 +40,13 @@ export const Table = ({ tableId, columns, data }: Props) => {
         </tr>
       </thead>
       <tbody>
-        {data.map((data, indx) => (
-          <tr key={indx}>
-            {columns.map((column) => (
+        {data.map((data, index) => (
+          <tr key={`${tableId}${index}`}>
+            {columns.map((column, columnIndex) => (
               <TableEditableCell
+                key={`${column.field}${columnIndex}`}
                 value={data[column.field]}
-                onChange={getHandleCellChange(indx, column.field)}
-                key={column.field}
+                onChange={getHandleCellChange(index, column.field)}
               />
             ))}
           </tr>

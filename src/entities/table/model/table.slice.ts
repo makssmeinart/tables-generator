@@ -1,9 +1,10 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { Column } from '../../../features/createTable/ui/CreateTableForm'
 import { createEmptyTable } from '../lib/tableUtils'
+import { generateUUIDv4 } from '../../../shared/lib/commonUtils'
 
 export interface Table {
-  id: number
+  id: string
   columns: Column[]
   data: any[]
 }
@@ -28,7 +29,7 @@ const tableSlice = createSlice({
     updateTable: (
       state,
       action: PayloadAction<{
-        tableId: number
+        tableId: string
         rowIndex: number
         field: string
         newValue: string
@@ -54,7 +55,7 @@ const tableSlice = createSlice({
       }
     },
 
-    copyTable: (state, action: PayloadAction<{ copiedTableId: number }>) => {
+    copyTable: (state, action: PayloadAction<{ copiedTableId: string }>) => {
       const index = state.findIndex(
         (table) => table.id === action.payload.copiedTableId
       )
@@ -66,15 +67,36 @@ const tableSlice = createSlice({
       const copiedTable = state[index]
 
       const newTable: Table = {
-        id: Date.now(),
+        id: generateUUIDv4(),
         columns: [...copiedTable.columns],
         data: copiedTable.data.map((row) => ({ ...row })),
       }
 
       state.splice(index + 1, 0, newTable)
     },
+
+    reorderTables: (
+      state,
+      action: PayloadAction<{ fromIndex: number; toIndex: number }>
+    ) => {
+      const { fromIndex, toIndex } = action.payload
+
+      if (
+        fromIndex < 0 ||
+        toIndex < 0 ||
+        fromIndex >= state.length ||
+        toIndex >= state.length
+      ) {
+        return
+      }
+
+      const [moved] = state.splice(fromIndex, 1)
+
+      state.splice(toIndex, 0, moved)
+    },
   },
 })
 
-export const { createTable, updateTable, copyTable } = tableSlice.actions
+export const { createTable, updateTable, copyTable, reorderTables } =
+  tableSlice.actions
 export default tableSlice.reducer

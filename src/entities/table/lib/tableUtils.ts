@@ -1,4 +1,5 @@
 import { Table } from '../model/table.slice'
+import { generateUUIDv4 } from '../../../shared/lib/commonUtils'
 
 export const createEmptyTable = (columns: Table['columns']): Table => {
   const emptyData = columns.reduce(
@@ -11,7 +12,7 @@ export const createEmptyTable = (columns: Table['columns']): Table => {
   )
 
   const table: Table = {
-    id: Date.now(),
+    id: generateUUIDv4(),
     columns,
     data: Array.from({ length: 4 }, () => ({ ...emptyData })),
   }
