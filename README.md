@@ -1,54 +1,37 @@
-# React + TypeScript + Vite
+# Tables Generator
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A flexible table generator built with React, TypeScript, and Vite. This project provides an easy-to-use interface for dynamically generating tables with customizable columns. Some of the shared components are inspired by Chakra UI, but with an emphasis on simplicity and avoiding unnecessary complexity ( yeah... maybe not ). The goal was to use as few external libraries as possible while still providing a highly extensible and flexible grid.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Customizable Columns**: Dynamically create tables with user-defined columns.
+- **Copy Grid**: Duplicate an existing grid and its data.
+- **Drag-and-Drop**: Reorder rows and columns easily through drag-and-drop functionality.
+- **Minimal Dependencies**: Built with as few external libraries as possible to keep the project lightweight and easy to maintain.
+- **Extensible Components**: Designed with flexibility in mind, allowing you to easily extend or modify the table functionality.
 
-## Expanding the ESLint configuration
+## Project Setup
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+To get started, clone this repository and install the necessary dependencies:
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+git clone <repository-url>
+cd tables-generator
+npm install
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+# Development Mode
+npm run dev
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+# Lint the Codebase
+npm run lint
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+# Automatically Fix Linting Issues
+npm run lint:fix
+
+# Run Tests with Vitest
+npm run test
+
+# Format Codebase with Prettier
+npm run prettier
+
+# Check if Codebase Adheres to Prettier Formatting
+npm run prettier-check
