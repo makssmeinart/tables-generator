@@ -1,6 +1,6 @@
 # Tables Generator
 
-A flexible table generator built with React, TypeScript, and Vite. This project provides an easy-to-use interface for dynamically generating tables with customizable columns. Some of the shared components are inspired by Chakra UI, but with an emphasis on simplicity and avoiding unnecessary complexity ( yeah... maybe not ). The goal was to use as few external libraries as possible while still providing a highly extensible and flexible grid.
+A flexible table generator built with React, TypeScript, and Vite. This project provides an easy-to-use interface for dynamically generating tables with customizable columns. Some of the shared components are inspired by Chakra UI ( I wanted to try and build simplified chakra UI copmonents. Just for practice, I understand that this is absolutely uneccessary for project of this complexity ). The goal was to use as few external libraries as possible while still providing a highly extensible and flexible grid.
 
 ## Features
 
