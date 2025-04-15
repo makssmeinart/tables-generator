@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { createSlice, type PayloadAction } from '@reduxjs/toolkit'
 import { createEmptyTable } from '../lib/tableUtils'
 import { generateUUIDv4 } from '../../../shared/lib/utils/commonUtils'
 import { TableState } from './type'
@@ -92,4 +92,4 @@ const tableSlice = createSlice({
 
 export const { createTable, updateTable, copyTable, reorderTables } =
   tableSlice.actions
-export default tableSlice.reducer
+export const { reducer } = tableSlice

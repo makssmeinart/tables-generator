@@ -7,29 +7,22 @@ export const useEditableCell = (
   const [isEditing, setEditing] = useState(false)
   const [inputValue, setInputValue] = useState(initialValue)
 
-  const handleChange = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      setInputValue(e.target.value)
-    },
-    [setInputValue]
-  )
+  const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    setInputValue(e.target.value)
+  }, [])
 
   const startEditing = useCallback(() => {
-    if (isEditing) {
-      return
+    if (!isEditing) {
+      setEditing(true)
     }
-
-    setEditing(true)
   }, [isEditing])
 
   const stopEditing = useCallback(() => {
-    if (!isEditing) {
-      return
+    if (isEditing) {
+      setEditing(false)
+      onChange(inputValue)
     }
-
-    onChange(inputValue)
-    setEditing(false)
-  }, [inputValue, onChange])
+  }, [isEditing, inputValue, onChange])
 
   const handleKeyDown = useCallback(
     (e: React.KeyboardEvent<HTMLInputElement>) => {

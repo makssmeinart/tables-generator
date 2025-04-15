@@ -1,9 +1,10 @@
 import styled from '@emotion/styled'
 import { InputHTMLAttributes } from 'react'
 
-interface Props extends InputHTMLAttributes<HTMLInputElement> {}
-
-export const Input = ({ children, ...restProps }: Props) => {
+export const Input = ({
+  children,
+  ...restProps
+}: InputHTMLAttributes<HTMLInputElement>) => {
   return <InputStyled {...restProps}>{children}</InputStyled>
 }
 

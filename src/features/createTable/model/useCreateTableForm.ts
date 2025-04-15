@@ -14,6 +14,9 @@ export type CreateTableFormState = {
   fourthCol: SelectOption
 }
 
+const hasDuplicates = (values: string[]) =>
+  new Set(values.map((value) => value.toLowerCase())).size !== values.length
+
 export const useCreateTableForm = () => {
   const dispatch = useAppDispatch()
   const { close } = usePopoverContext()
@@ -25,14 +28,23 @@ export const useCreateTableForm = () => {
     fourthCol: 'Country',
   })
 
+  const [error, setError] = useState<string | null>(null)
+
   const handleChange = (formField: string, value: string) => {
     setFormValues((prev) => ({ ...prev, [formField]: value }))
+    setError(null)
   }
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
 
     const { firstCol, secondCol, thirdCol, fourthCol } = formValues
+    const values = [firstCol, secondCol, thirdCol, fourthCol]
+
+    if (hasDuplicates(values)) {
+      setError('All column names must be unique.')
+      return
+    }
 
     const columns = [
       { field: firstCol.toLowerCase(), label: firstCol },
@@ -55,5 +67,6 @@ export const useCreateTableForm = () => {
     formValues,
     handleChange,
     handleSubmit,
+    error,
   }
 }

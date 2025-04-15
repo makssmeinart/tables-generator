@@ -73,20 +73,5 @@ export default tseslint.config(
       'import/no-deprecated': 'warn',
       'import/no-duplicates': 'warn',
     },
-    overrides: [
-      {
-        files: ['src/**/*.{tsx,ts}'],
-        excludedFiles: ['**/__test__/**/*'],
-        rules: {
-          'react/function-component-definition': [
-            'error',
-            {
-              namedComponents: 'arrow-function',
-              unnamedComponents: 'arrow-function',
-            },
-          ],
-        },
-      },
-    ],
   }
 )

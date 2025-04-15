@@ -7,7 +7,7 @@ import { INPUT_FIELDS } from '../lib/constants'
 import { LOCATION_SELECT_OPTIONS } from '../../../shared/constants/table'
 
 export const CreateTableForm = () => {
-  const { formValues, handleChange, handleSubmit } = useCreateTableForm()
+  const { formValues, error, handleChange, handleSubmit } = useCreateTableForm()
 
   return (
     <FormWrapperStyled>
@@ -29,6 +29,8 @@ export const CreateTableForm = () => {
         <Button type="submit" color="secondary" size="sm" weight="bold">
           ADD
         </Button>
+        {/* TODO - This should be done properly in real case. Just some UX improvements */}
+        <ErrorStyled>{error}</ErrorStyled>
       </FormStyled>
     </FormWrapperStyled>
   )
@@ -50,4 +52,8 @@ const FormStyled = styled('form')`
   button:last-child {
     margin-top: 4px;
   }
+`
+
+const ErrorStyled = styled('div')`
+  color: #f35a5a;
 `
