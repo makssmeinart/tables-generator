@@ -1,3 +1,4 @@
+import React from 'react'
 import styled from '@emotion/styled'
 import { Input } from '../../../shared/ui'
 import { useEditableCell } from '../lib/useEditableCell'
@@ -7,23 +8,23 @@ interface Props {
   onChange: (newValue: string) => void
 }
 
-export const TableEditableCell = ({ value, onChange }: Props) => {
+export const TableEditableCell = React.memo(({ value, onChange }: Props) => {
   const {
     isEditing,
     inputValue,
-    setInputValue,
+    handleChange,
     startEditing,
     stopEditing,
     handleKeyDown,
   } = useEditableCell(value, onChange)
 
   return (
-    <TableCellStyled $isEditing={isEditing} onClick={() => startEditing()}>
+    <TableCellStyled $isEditing={isEditing} onClick={startEditing}>
       {isEditing ? (
         <TableEditableCellStyled
           autoFocus
           value={inputValue}
-          onChange={(e) => setInputValue(e.target.value)}
+          onChange={handleChange}
           onBlur={stopEditing}
           onKeyDown={handleKeyDown}
         />
@@ -32,7 +33,7 @@ export const TableEditableCell = ({ value, onChange }: Props) => {
       )}
     </TableCellStyled>
   )
-}
+})
 
 const TableCellStyled = styled('td')<{ $isEditing?: boolean }>`
   padding: ${({ $isEditing }) => ($isEditing ? '0px' : '0 10px')};

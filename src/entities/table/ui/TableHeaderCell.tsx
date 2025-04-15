@@ -1,3 +1,4 @@
+import React from 'react'
 import styled from '@emotion/styled'
 import { TableColumn } from '../../../shared/types/tables'
 
@@ -12,7 +13,7 @@ const renderIcon = () => {
   return <img src={copyIcon} alt="copy icon" width={64} height={21} />
 }
 
-export const TableHeaderCell = ({ column, onClick }: Props) => {
+export const TableHeaderCell = React.memo(({ column, onClick }: Props) => {
   return (
     <TableHeaderCellStyled>
       <LabelWrapper>
@@ -23,7 +24,7 @@ export const TableHeaderCell = ({ column, onClick }: Props) => {
       </LabelWrapper>
     </TableHeaderCellStyled>
   )
-}
+})
 
 const TableHeaderCellStyled = styled('th')`
   padding: 6px 4px;

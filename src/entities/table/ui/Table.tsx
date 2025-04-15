@@ -1,19 +1,21 @@
+import React, { useCallback } from 'react'
 import styled from '@emotion/styled'
-import { TableEditableCell } from './TableEditableCell'
 import { copyTable, updateTable } from '../model/table.slice'
-import { useCallback } from 'react'
 import { TableHeaderCell } from './TableHeaderCell'
 import { useAppDispatch } from '../../../shared/lib/store/redux'
-import { type Table as ITable } from '../../../shared/types/tables'
+import { TableColumn, TableData } from '../../../shared/types/tables'
+import { TableBodyCell } from './TableBodyCell'
+
 interface Props {
-  table: ITable
+  id: string
+  columns: TableColumn[]
+  data: TableData[]
 }
 
-export const Table = ({ table }: Props) => {
-  const { id: tableId, columns, data } = table
-
+export const Table = React.memo(({ id: tableId, columns, data }: Props) => {
   const dispatch = useAppDispatch()
 
+  // TODO - figure out a better way to do this.
   const getHandleCellChange = useCallback(
     (rowIndex: number, field: string) => (newValue: string) => {
       dispatch(updateTable({ tableId, rowIndex, field, newValue }))
@@ -39,13 +41,15 @@ export const Table = ({ table }: Props) => {
         </tr>
       </thead>
       <tbody>
-        {data.map((data, index) => (
-          <tr key={`${tableId}${index}`}>
+        {data.map((data, rowIndex) => (
+          <tr key={`${tableId}${rowIndex}`}>
             {columns.map((column, columnIndex) => (
-              <TableEditableCell
+              <TableBodyCell
                 key={`${column.field}${columnIndex}`}
                 value={data[column.field]}
-                onChange={getHandleCellChange(index, column.field)}
+                rowIndex={rowIndex}
+                field={column.field}
+                getHandleCellChange={getHandleCellChange}
               />
             ))}
           </tr>
@@ -53,7 +57,7 @@ export const Table = ({ table }: Props) => {
       </tbody>
     </TableStyled>
   )
-}
+})
 
 const TableStyled = styled('table')`
   border-collapse: collapse;

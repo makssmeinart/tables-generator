@@ -18,7 +18,7 @@ export const TableDashboard = () => {
             onDragStart={handleDragStart}
             onDrop={handleDrop}
           >
-            <Table table={table} />
+            <Table id={table.id} columns={table.columns} data={table.data} />
           </Draggable>
         </TableInnerStyled>
       ))}

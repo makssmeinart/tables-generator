@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
 
 export const useEditableCell = (
   initialValue: string,
@@ -7,36 +7,46 @@ export const useEditableCell = (
   const [isEditing, setEditing] = useState(false)
   const [inputValue, setInputValue] = useState(initialValue)
 
-  const startEditing = () => {
+  const handleChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      setInputValue(e.target.value)
+    },
+    [setInputValue]
+  )
+
+  const startEditing = useCallback(() => {
     if (isEditing) {
       return
     }
 
     setEditing(true)
-  }
+  }, [isEditing])
 
-  const stopEditing = () => {
+  const stopEditing = useCallback(() => {
     if (!isEditing) {
       return
     }
 
-    setEditing(false)
     onChange(inputValue)
-  }
+    setEditing(false)
+  }, [inputValue, onChange])
 
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter') {
-      stopEditing()
-    } else if (e.key === 'Escape') {
-      setInputValue(initialValue)
-      setEditing(false)
-    }
-  }
+  const handleKeyDown = useCallback(
+    (e: React.KeyboardEvent<HTMLInputElement>) => {
+      if (e.key === 'Enter') {
+        stopEditing()
+      } else if (e.key === 'Escape') {
+        setInputValue(initialValue)
+        setEditing(false)
+      }
+    },
+    [stopEditing, initialValue]
+  )
 
   return {
     isEditing,
     inputValue,
-    setInputValue,
+    handleChange,
     startEditing,
     stopEditing,
     handleKeyDown,
