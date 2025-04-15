@@ -1,9 +1,10 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
-import reducer, {
+import {
   createTable,
   updateTable,
   copyTable,
   reorderTables,
+  reducer,
 } from '../table.slice'
 import { Table, TableColumn } from '../../../../shared/types/tables'
 
